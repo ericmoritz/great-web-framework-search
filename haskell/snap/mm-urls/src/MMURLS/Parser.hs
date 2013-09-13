@@ -29,6 +29,10 @@ makeLenses ''MMBits
 -------------------------------------------------------------------------------
 -- Public
 ------------------------------------------------------------------------------
+updateAction :: String -> String -> String -> Either String String
+updateAction secret url actions =
+  encodeURL secret `liftM` setActions actions `liftM` decodeURL url
+
 setActions :: String -> MMBits -> MMBits
 setActions actionsValue bits = set actions actionsValue bits
   

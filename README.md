@@ -90,8 +90,3 @@ the site.
 
 The building of the project should be able to use the language's
 native packaging tools with private code.
-
-## Example applications
-
-
-### Minimogrify image generator

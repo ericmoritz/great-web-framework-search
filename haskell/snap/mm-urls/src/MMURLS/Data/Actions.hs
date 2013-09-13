@@ -2,7 +2,7 @@
 -- |
 -- Module : Database.Actions
 -- 
--- The interface to the actions databas
+-- The interface to the actions database
 -------------------------------------------------------------------------------
 import qualified Data.Map as Map
 

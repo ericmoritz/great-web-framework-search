@@ -21,14 +21,18 @@ new :: Redis.Connection -> RedisActionsDB
 new = RedisActionsDB
 
 instance ActionsDB RedisActionsDB where
-  get k db = do
-    result <- runRedis (db^.connection) $ Redis.get (pack k)
+  get ks db = do
+    result <- runRedis (db^.connection) $ Redis.mget $ map pack ks
     return $ either
-      (\_ -> Nothing)
-      (\mb -> unpack `liftM` mb)
+      (\_ -> [])
+      (\mbs -> map (liftM unpack) mbs)
       result
 
-  store k v db =
-    runRedis (db^.connection) $ Redis.set (pack k) (pack v) >> return db
-  delete k db =
-    runRedis (db^.connection) $ Redis.del [(pack k)] >> return db
+  store items db =
+    runRedis (db^.connection) $ Redis.mset itemsBS >> return db
+    where
+      itemsBS = map (\(k,v) -> ((pack k), (pack v))) items
+  delete ks db =
+    runRedis (db^.connection) $ Redis.del keysBS >> return db
+    where
+      keysBS = map pack ks

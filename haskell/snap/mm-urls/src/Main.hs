@@ -5,6 +5,7 @@ import           Control.Applicative
 import           Snap.Core
 import           Snap.Util.FileServe
 import           Snap.Http.Server
+import           MMURLS.Data.Actions
 
 main :: IO ()
 main = quickHttpServe site

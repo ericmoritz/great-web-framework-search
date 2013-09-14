@@ -1,5 +1,5 @@
 {-# LANGUAGE TemplateHaskell #-}
-module MMURLS.Parser (encodeURL, decodeURL, setActions, getActions) where 
+module MMURLS.Parser (updateActions) where 
 import Text.Parsec.Prim
 import Text.Parsec.Error
 import Text.ParserCombinators.Parsec.Char
@@ -9,6 +9,7 @@ import Data.Char (ord)
 import Codec.Utils (Octet)
 import Codec.Text.Raw (hexdumpBy)
 import Control.Lens
+import Control.Monad (liftM)
 import Data.List (intercalate)
 
 -------------------------------------------------------------------------------
@@ -29,8 +30,8 @@ makeLenses ''MMBits
 -------------------------------------------------------------------------------
 -- Public
 ------------------------------------------------------------------------------
-updateAction :: String -> String -> String -> Either String String
-updateAction secret url actions =
+updateActions :: String -> String -> String -> Either String String
+updateActions secret url actions =
   encodeURL secret `liftM` setActions actions `liftM` decodeURL url
 
 setActions :: String -> MMBits -> MMBits

@@ -10,6 +10,23 @@ Category:            Web
 Build-type:          Simple
 Cabal-version:       >=1.2
 
+Test-Suite mm-urls-tests
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: tests, src
+  main-is:        MainTestSuite.hs
+  build-depends:  
+    base                      >= 4     && < 5,
+    Crypto                    >= 4.2   && < 5,
+    lens                      >= 3.9   && < 4,
+    parsec                    >= 3.1   && < 4,
+    hedis                     >= 0.6   && < 0.7,
+    containers,
+    HUnit,
+    QuickCheck,
+    test-framework,
+    test-framework-hunit,
+    test-framework-quickcheck2
+
 Executable mm-urls
   hs-source-dirs: src
   main-is: Main.hs
@@ -21,7 +38,8 @@ Executable mm-urls
     mtl                       >= 2     && < 3,
     snap-core                 >= 0.9   && < 0.11,
     snap-server               >= 0.9   && < 0.11,
-    Crypto                    >= 4.2   && < 5
+    Crypto                    >= 4.2   && < 5,
+    lens                      >= 3.9   && < 4
 
   if impl(ghc >= 6.12.0)
     ghc-options: -threaded -Wall -fwarn-tabs -funbox-strict-fields -O2

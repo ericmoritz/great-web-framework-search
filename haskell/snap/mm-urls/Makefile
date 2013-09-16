@@ -1,18 +1,21 @@
-.PHONY: deps tests
+CABAL?=cabal-dev
+
+.PHONY: tests build configure install
 
 build: configure
-	cabal build
+	$(CABAL) build
 
 configure:
-	cabal configure
+	$(CABAL) configure
 
 install:
-	cabal install
+	$(CABAL) install
 
 deps:
-	cabal-dev install --only-dependencies
+	$(CABAL) install --enable-tests --only-dependencies
 
-tests:
-	cabal configure --enable-tests
-	cabal build
-	cabal test
+test: tests
+tests: deps
+	$(CABAL) configure --enable-tests
+	$(CABAL) build
+	$(CABAL) test
